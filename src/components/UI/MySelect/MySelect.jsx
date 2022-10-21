@@ -1,6 +1,3 @@
-import { useState } from "react";
-
-
 function MySelect({options, defaultValue, value, onChange}) {
   return (
     <select
