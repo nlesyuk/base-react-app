@@ -49,16 +49,10 @@ function App() {
         setFilter={setFilter}
         options={options}
       />
-      {
-        sortedAndSearchedPosts.length
-          ? <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'list of item'} />
-          : <h1>Posts don't exist</h1>
-      }
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'list of item'} />
 
     </div >
   );
 }
 
 export default App;
-
-// 1.09

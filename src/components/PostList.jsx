@@ -1,7 +1,11 @@
-import  React, { useState }from 'react'
+import  React from 'react'
 import PostItem from './PostItem';
 
 export default function PostList({posts, title, remove}) {
+  if (!posts.length) {
+    return  (<h1>Posts don't exist</h1>)
+  }
+
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>{ title }</h1>
