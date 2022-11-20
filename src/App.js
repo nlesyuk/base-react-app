@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react'
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
-import MyInput from './components/UI/input/MyInput';
-import MySelect from './components/UI/MySelect/MySelect';
 import PostFilter from './components/PostFilter';
+import MyModal from './components/UI/MyModal/MyModal';
+import MyButton from './components/UI/button/MyButton';
 
 function App() {
   const options = [
@@ -16,13 +16,12 @@ function App() {
     { id: 2, title: 'asd', body: 'rrr' },
     { id: 3, title: 'dfdfs', body: 'hhh' }
   ])
-  // const [selectedSort, setSelectedSort] = useState('')
-  // const [searchQuery, setSearchQuery] = useState('')
-
   const [filter, setFilter] = useState({ sort: '', query: '' })
+  const [visible, setVisible] = useState(false)
 
   function createPost(newPost) {
     setPosts([...posts, { title: newPost.title, body: newPost.body }])
+    setVisible(false)
   }
   function removePost(post) {
     setPosts([...posts.filter(p => p.id !== post.id)])
@@ -42,8 +41,14 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
-      <hr ></hr>
+      <MyButton onClick={() => setVisible(!visible)}>
+        Create user
+      </MyButton>
+      <MyModal visible={visible} setVisible={setVisible}>
+        <PostForm create={createPost} />
+      </MyModal>
+
+      <hr style={{ margin: '16px 0' }}></hr>
       <PostFilter
         filter={filter}
         setFilter={setFilter}
