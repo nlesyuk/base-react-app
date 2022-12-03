@@ -1,10 +1,13 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
 import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
 import MyButton from './components/UI/button/MyButton';
+import Loader from './components/UI/Loader/Loader';
 import { usePosts } from './hooks/usePosts'
+import { useFetching } from './hooks/useFetching'
+import PostService from './API/PostService'
 
 function App() {
   const options = [
@@ -12,15 +15,14 @@ function App() {
     { value: 'body', name: 'Body' },
   ]
 
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'title', body: 'description' },
-    { id: 2, title: 'asd', body: 'rrr' },
-    { id: 3, title: 'dfdfs', body: 'hhh' }
-  ])
+  const [posts, setPosts] = useState([])
   const [filter, setFilter] = useState({ sort: '', query: '' })
   const [visible, setVisible] = useState(false)
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
-
+  const [fetchPosts, isPostsLoading, postsError] = useFetching(async () => {
+    const posts = await PostService.getAll()
+    setPosts(posts)
+  })
 
   function createPost(newPost) {
     setPosts([...posts, { title: newPost.title, body: newPost.body }])
@@ -32,6 +34,7 @@ function App() {
 
   return (
     <div className="App">
+      <MyButton onClick={() => fetchPosts()}> fetch</MyButton>
       <MyButton onClick={() => setVisible(!visible)}>
         Create user
       </MyButton>
@@ -45,7 +48,11 @@ function App() {
         setFilter={setFilter}
         options={options}
       />
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'list of item'} />
+      {postsError && <h1>{postsError}</h1>}
+      {isPostsLoading
+        ? <Loader centered={true} />
+        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'list of item'} />
+      }
 
     </div >
   );
