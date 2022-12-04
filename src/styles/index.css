@@ -8,7 +8,7 @@
   align-items: center;
 }
 .App {
-  width: 800px;
+  width: 400px;
   margin: 0 auto;
 }
 
@@ -48,7 +48,10 @@ align-items: center;
   border: 1px solid green;
   text-align: center;
   width: 26px;
+  cursor: pointer;
 }
 .pagination .page.active {
-  border-color: aqua;
+  background-color: green;
+  font-weight: bold;
+  color: white;
 }

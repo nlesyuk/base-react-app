@@ -8,7 +8,8 @@ import Loader from './components/UI/Loader/Loader';
 import { usePosts } from './hooks/usePosts'
 import { useFetching } from './hooks/useFetching'
 import PostService from './API/PostService'
-import { getPageCount, getPagesArray } from './utils/pages';
+import { getPageCount } from './utils/pages';
+import Pagination from './components/UI/pagination/Pagination';
 
 function App() {
   const options = [
@@ -24,15 +25,12 @@ function App() {
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
 
-  // TODO: pagination remake with useMemo(don't rerender each time)
-  let pagesArray = getPagesArray(totalPage)
-
   const [fetchPosts, isPostsLoading, postsError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page)
     setPosts(response.data)
-    const totalCount = response.headers['x-total-count']
+    const totalCount = +response.headers['x-total-count']
     setTotalPage(getPageCount(totalCount, limit))
-    console.log('totalPage', totalPage, page)
+    console.log('totalPage', totalCount, totalPage, page)
   })
 
   function createPost(newPost) {
@@ -53,7 +51,7 @@ function App() {
 
   return (
     <div className="App">
-      <MyButton onClick={() => fetchPosts()}> fetch</MyButton>
+      <MyButton onClick={() => fetchPosts(limit, page)}>fetch</MyButton>
       <MyButton onClick={() => setVisible(!visible)}>
         Create user
       </MyButton>
@@ -72,19 +70,12 @@ function App() {
         ? <Loader centered={true} />
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'list of item'} />
       }
-      <div className='pagination'>
-        {
-          pagesArray.map(p =>
-            <span
-              onClick={() => onChangePage(p)}
-              className={page === p ? 'page active' : 'page'}
-              key={p}
-            >
-              {p}
-            </span>
-          )
-        }
-      </div>
+
+      <Pagination
+        totalPages={totalPage}
+        onChangePage={onChangePage}
+        currentPage={page}
+      />
 
     </div >
   );

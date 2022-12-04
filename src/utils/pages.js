@@ -9,6 +9,5 @@ export const getPagesArray = (totalPages) => {
     arr.push(i + 1)
   }
 
-  console.log(arr)
   return arr
 }
