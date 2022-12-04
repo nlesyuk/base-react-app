@@ -4,13 +4,13 @@
   box-sizing: border-box;
 }
 #root {
-  display: flex;
+  /* display: flex; */
   align-items: center;
-}
-.App {
   width: 400px;
   margin: 0 auto;
 }
+/* .App {
+} */
 
 .post {
   display: flex;
@@ -54,4 +54,22 @@ align-items: center;
   background-color: green;
   font-weight: bold;
   color: white;
+}
+
+
+header {
+  display: block;
+  width: 100%;
+  padding: 16px 0;
+  background-color: #ccc;
+}
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header nav a {
+  padding: 0 16px;
+  text-decoration: none;
+
 }
