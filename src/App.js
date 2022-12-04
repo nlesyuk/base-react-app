@@ -22,17 +22,17 @@ function App() {
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
   const [totalPage, setTotalPage] = useState(0)
   const [limit, setLimit] = useState(10)
-  const [page, setPage] = useState(10)
+  const [page, setPage] = useState(1)
 
   // TODO: pagination remake with useMemo(don't rerender each time)
   let pagesArray = getPagesArray(totalPage)
 
-  const [fetchPosts, isPostsLoading, postsError] = useFetching(async () => {
+  const [fetchPosts, isPostsLoading, postsError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page)
     setPosts(response.data)
     const totalCount = response.headers['x-total-count']
     setTotalPage(getPageCount(totalCount, limit))
-    console.log('totalPage', totalPage)
+    console.log('totalPage', totalPage, page)
   })
 
   function createPost(newPost) {
@@ -41,6 +41,14 @@ function App() {
   }
   function removePost(post) {
     setPosts([...posts.filter(p => p.id !== post.id)])
+  }
+
+  // useEffect(() => {
+  //   fetchPosts()
+  // }, [page])
+  function onChangePage(page) {
+    setPage(page)
+    fetchPosts(limit, page)
   }
 
   return (
@@ -64,9 +72,19 @@ function App() {
         ? <Loader centered={true} />
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'list of item'} />
       }
-      {pagesArray.map(p =>
-        <MyButton>{p}</MyButton>
-      )}
+      <div className='pagination'>
+        {
+          pagesArray.map(p =>
+            <span
+              onClick={() => onChangePage(p)}
+              className={page === p ? 'page active' : 'page'}
+              key={p}
+            >
+              {p}
+            </span>
+          )
+        }
+      </div>
 
     </div >
   );
