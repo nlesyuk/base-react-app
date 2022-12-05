@@ -6,7 +6,7 @@ import Loader from '../components/UI/Loader/Loader'
 
 export default function Post() {
   const { id } = useParams()
-  console.log('param', id)
+
   const [post, setPost] = useState('')
   const [fetchPost, isLoading, error] = useFetching(async (id) => {
     const response = await PostService.getById(id)

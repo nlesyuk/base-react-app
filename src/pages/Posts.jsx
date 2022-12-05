@@ -32,7 +32,6 @@ export default function Posts() {
     setPosts(response.data)
     const totalCount = +response.headers['x-total-count']
     setTotalPage(getPageCount(totalCount, limit))
-    console.log('totalPage', totalCount, totalPage, page)
   })
 
   function createPost(newPost) {
