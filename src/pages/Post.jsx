@@ -29,6 +29,7 @@ export default function Post() {
             </div>
           : <h1>Post with id:{id}</h1>
       }
+      {error && <h2>{error}</h2>}
     </div>
   )
 }
