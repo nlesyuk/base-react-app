@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
 import PostFilter from '../components/PostFilter';
@@ -12,6 +12,7 @@ import { useFetching } from '../hooks/useFetching'
 import PostService from '../API/PostService'
 import { getPageCount } from '../utils/pages';
 import Pagination from '../components/UI/pagination/Pagination';
+import MySelect from '../components/UI/MySelect/MySelect';
 
 export default function Posts() {
   const options = [
@@ -42,12 +43,15 @@ export default function Posts() {
     setPosts([...posts.filter(p => p.id !== post.id)])
   }
 
-  // useEffect(() => {
-  //   fetchPosts()
-  // }, [page])
+  // 1
+  useEffect(() => {
+     fetchPosts(limit, page)
+  }, [page, limit])
+
+  // 2
   function onChangePage(page) {
     setPage(page)
-    fetchPosts(limit, page)
+    // fetchPosts(limit, page)
   }
 
   return (
@@ -61,11 +65,25 @@ export default function Posts() {
       </MyModal>
 
       <hr style={{ margin: '16px 0' }}></hr>
+
       <PostFilter
         filter={filter}
         setFilter={setFilter}
         options={options}
-      />
+        />
+      <MySelect
+        value={limit}
+        onChange={value => setLimit(value)}
+        defaultValue="Posts per page"
+        options={[
+          {value: 5, name: '5'},
+          {value: 10, name: '10'},
+          {value: 25, name: '20'},
+          {value: 50, name: '50'},
+          {value: -1, name: 'all'},
+        ]}
+        />
+
       {postsError && <h1>{postsError}</h1>}
       {isPostsLoading
         ? <Loader centered={true} />
