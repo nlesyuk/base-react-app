@@ -4,6 +4,8 @@ import Post from '../pages/Post'
 import NotFound from '../pages/NotFound'
 import Login from '../pages/Login'
 
+// exact prop don't work with reat-router-dom v6
+
 const generalRoutes = [
   { path: '*', component: <NotFound />, exact: true },
 ]

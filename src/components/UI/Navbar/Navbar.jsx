@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../context/useContext'
 import MyButton from '../button/MyButton'
 
@@ -16,14 +16,18 @@ export default function Navbar() {
     navigate('/login')
   }
 
+  function navLinkClasses({isActive }) {
+    return [classes['nav__link'], isActive ? classes['nav__link-active'] : undefined].filter(Boolean).join(' ')
+  }
+
   return (
       <nav className={classes.nav}>
-        <Link to="/about">about</Link>
-        <Link to="/posts">posts</Link>
+        <NavLink to="/about" className={navLinkClasses}>about</NavLink>
+        <NavLink to="/posts" className={navLinkClasses}>posts</NavLink>
         <div className={classes.button}>
         {isAuth
           ? <MyButton onClick={logout}>logout</MyButton>
-          : <Link to="/login">login</Link>
+          : <NavLink to="/login">login</NavLink>
         }
         </div>
       </nav>

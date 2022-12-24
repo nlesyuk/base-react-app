@@ -9,6 +9,12 @@
   padding: 0 16px;
   text-decoration: none;
 }
+.nav__link {
+  color: grey;
+}
+.nav__link-active {
+  color: black;
+}
 
 .button {
   margin-left: auto;

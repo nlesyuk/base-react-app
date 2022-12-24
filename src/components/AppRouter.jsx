@@ -5,19 +5,27 @@ import { privateRoutes, publicRoutes } from '../router'
 
 export default function AppRouter() {
   const {isAuth, setIsAuth} = useContext(AuthContext)
-// 2:41
+
   return (
     isAuth
     ?
       <Routes>
         {privateRoutes.map(route =>
-          <Route key={route.path} path={route.path} element={route.component} exact={route.exact} />
+          <Route
+            key={route.path}
+            path={route.path}
+            element={route.component}
+          />
         )}
       </Routes>
     :
       <Routes>
         {publicRoutes.map(route =>
-          <Route key={route.path} path={route.path} element={route.component} exact={route.exact} />
+          <Route
+            key={route.path}
+            path={route.path}
+            element={route.component}
+          />
         )}
       </Routes>
   )
