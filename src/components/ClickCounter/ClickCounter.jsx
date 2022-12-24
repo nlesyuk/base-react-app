@@ -36,7 +36,7 @@ export default function ClickCounter() {
 
   return (
     <div className={classes['click-counter']}>
-      <div>{ counter }</div>
+      <div className={classes['click-counter__counter']}>{ counter }</div>
       <MyButton onClick={onReset} >Reset</MyButton>
       <MyButton onClick={onIncrement} >increment</MyButton>
       <MyButton onClick={onDecrement} >decrement</MyButton>
