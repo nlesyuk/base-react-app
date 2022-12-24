@@ -9,4 +9,4 @@ function MyButton({children, ...props}) {
   );
 }
 
-export default MyButton;
+export default React.memo(MyButton);
