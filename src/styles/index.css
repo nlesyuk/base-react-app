@@ -66,13 +66,3 @@ header {
   padding: 16px 0;
   background-color: #ccc;
 }
-header nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-header nav a {
-  padding: 0 16px;
-  text-decoration: none;
-
-}
