@@ -56,9 +56,9 @@ export default function Posts() {
 
   return (
     <div className="posts">
-      <MyButton onClick={() => fetchPosts(limit, page)}>fetch</MyButton>
+      {/* <MyButton onClick={() => fetchPosts(limit, page)}>fetch</MyButton> */}
       <MyButton onClick={() => setVisible(!visible)}>
-        Create user
+        Create post
       </MyButton>
       <MyModal visible={visible} setVisible={setVisible}>
         <PostForm create={createPost} />
