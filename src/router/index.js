@@ -11,13 +11,13 @@ const generalRoutes = [
 ]
 
 export const privateRoutes = [
-  { path: '/about', component: <About />, exact: true },
   { path: '/posts', component: <Posts />, exact: true },
   { path: '/posts/:id', component: <Post />, exact: true },
   ...generalRoutes,
 ]
 
 export const publicRoutes = [
+  { path: '/about', component: <About />, exact: true },
   { path: '/login', component: <Login />, exact: true },
   ...generalRoutes,
 ]
