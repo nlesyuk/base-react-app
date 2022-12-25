@@ -8,6 +8,7 @@ import Login from '../pages/Login'
 
 const generalRoutes = [
   { path: '*', component: <NotFound />, exact: true },
+  { path: '/about', component: <About />, exact: true },
 ]
 
 export const privateRoutes = [
@@ -17,7 +18,6 @@ export const privateRoutes = [
 ]
 
 export const publicRoutes = [
-  { path: '/about', component: <About />, exact: true },
   { path: '/login', component: <Login />, exact: true },
   ...generalRoutes,
 ]

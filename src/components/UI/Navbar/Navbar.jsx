@@ -16,7 +16,7 @@ export default function Navbar() {
     navigate('/login')
   }
 
-  const navLinkClasses = ({isActive }) => [classes['nav__link'], isActive ? classes['nav__link-active'] : undefined].filter(Boolean).join(' ')
+  const navLinkClasses = ({ isActive }) => [classes['nav__link'], isActive ? classes['nav__link-active'] : undefined].filter(Boolean).join(' ')
 
   return (
       <nav className={classes.nav}>
